@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: prediction-cp
-  name: prediction-cp
+    app: prediction-api
+  name: prediction-api
   namespace: myapps
 spec:
-  replicas: 2 # Creating two PODs for our app
+  replicas: 2 # Creating two replicas of the POD
   selector:
     matchLabels:
-      app: prediction-cp
+      app: prediction-api
   template:
     metadata:
       labels:
-        app: prediction-cp
+        app: prediction-api
     spec:
       containers:
-      - image: gcr.io/de2020/predictionapi:0.0.1 # Docker image name, that we pushed to GCR
-        name: prediction-cp-api     # POD name
+      - image: gcr.io/$PROJECT_ID/prediction-api:0.0.1 # Docker image name, that we pushed to GCR
+        name: prediction-api     
         volumeMounts:
         - mountPath: /usr/src/models
           name: model-repo
