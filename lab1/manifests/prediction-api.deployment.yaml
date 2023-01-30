@@ -25,9 +25,9 @@ spec:
         - containerPort: 5000
           protocol: TCP
         env:
+        - name: PROJECT_ID
+          value: ada2023  # use your project id
         - name: MODEL_REPO
-          value: /usr/src/models
-      volumes:
-        - name: model-repo
-          persistentVolumeClaim:
-            claimName: gce-model-repo
+          value: adamodels # use your GCP bucket id
+        - name: MODEL_NAME
+          value: model.hd5

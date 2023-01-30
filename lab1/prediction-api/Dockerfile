@@ -11,7 +11,9 @@ COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
 # Enviroment Variables
-ENV MODEL_REPO=/usr/src/myapp
+ENV PROJECT_ID=your-gcp-project-id
+ENV MODEL_REPO=your-model-repos-gcs-bucket
+ENV MODEL_NAME=model.h5
 # Run our App
 CMD ["python3","app.py"]
 # We can also use an ENTRYPOINT and a CMD
