@@ -16,7 +16,7 @@ spec:
         app: training-api
     spec:
       containers:
-      - image: gcr.io/$PROJECT_ID/training-api:0.0.1 # Docker image name, that we pushed to GCR
+      - image: gcr.io/ada2023/training-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
         name: training-api
         volumeMounts:
         - mountPath: /usr/src/models

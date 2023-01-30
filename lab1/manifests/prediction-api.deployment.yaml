@@ -16,7 +16,7 @@ spec:
         app: prediction-api
     spec:
       containers:
-      - image: gcr.io/$PROJECT_ID/prediction-api:0.0.1 # Docker image name, that we pushed to GCR
+      - image: gcr.io/ada2023/prediction-api:0.0.1 # Docker image name, that we pushed to GCR
         name: prediction-api     
         volumeMounts:
         - mountPath: /usr/src/models
