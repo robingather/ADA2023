@@ -30,4 +30,4 @@ spec:
       volumes:
         - name: model-repo
           persistentVolumeClaim:
-            claimName: nfs-model-repo
+            claimName: gce-model-repo
