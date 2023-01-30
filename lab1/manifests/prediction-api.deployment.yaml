@@ -17,10 +17,7 @@ spec:
     spec:
       containers:
       - image: gcr.io/ada2023/prediction-api:0.0.1 # Docker image name, that we pushed to GCR
-        name: prediction-api     
-        volumeMounts:
-        - mountPath: /usr/src/models
-          name: model-repo
+        name: prediction-api
         ports:
         - containerPort: 5000
           protocol: TCP

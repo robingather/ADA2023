@@ -18,9 +18,6 @@ spec:
       containers:
       - image: gcr.io/ada2023/training-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
         name: training-api
-        volumeMounts:
-        - mountPath: /usr/src/models
-          name: model-repo
         ports:
         - containerPort: 5000
           protocol: TCP
