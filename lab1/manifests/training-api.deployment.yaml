@@ -27,4 +27,4 @@ spec:
         - name: MODEL_REPO
           value: adamodels # use your GCP bucket id
         - name: MODEL_NAME
-          value: model.hd5
+          value: model.h5
