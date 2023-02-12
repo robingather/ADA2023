@@ -8,8 +8,8 @@
         "lab1/manifests"
       ],
 	  "env": [
-        "CLOUDSDK_COMPUTE_REGION=europe-west1-c",
-        "CLOUDSDK_COMPUTE_ZONE=europe-west1-c",
+        "CLOUDSDK_COMPUTE_REGION=europe-west1",
+        "CLOUDSDK_COMPUTE_ZONE=europe-west1",
         "CLOUDSDK_CONTAINER_CLUSTER=adalab2"
       ]
     }
