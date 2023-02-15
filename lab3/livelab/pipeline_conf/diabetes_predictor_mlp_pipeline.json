@@ -1,0 +1,191 @@
+{
+  "pipelineSpec": {
+    "components": {
+      "comp-download-data": {
+        "executorLabel": "exec-download-data",
+        "inputDefinitions": {
+          "parameters": {
+            "bucket": {
+              "type": "STRING"
+            },
+            "file_name": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "feature_path": {
+              "artifactType": {
+                "schemaTitle": "system.Artifact",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      },
+      "comp-train-mlp": {
+        "executorLabel": "exec-train-mlp",
+        "inputDefinitions": {
+          "artifacts": {
+            "feature_path": {
+              "artifactType": {
+                "schemaTitle": "system.Artifact",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "metrics_path": {
+              "artifactType": {
+                "schemaTitle": "system.Artifact",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      }
+    },
+    "deploymentSpec": {
+      "executors": {
+        "exec-download-data": {
+          "container": {
+            "args": [
+              "--project_id",
+              "{{$.inputs.parameters['project_id']}}",
+              "--bucket",
+              "{{$.inputs.parameters['bucket']}}",
+              "--file_name",
+              "{{$.inputs.parameters['file_name']}}",
+              "--feature_path",
+              "{{$.outputs.artifacts['feature_path'].path}}"
+            ],
+            "command": [
+              "python3",
+              "/pipelines/component/src/component.py"
+            ],
+            "image": "gcr.io/de2022-362409/dataingestor:0.0.1"
+          }
+        },
+        "exec-train-mlp": {
+          "container": {
+            "args": [
+              "--project_id",
+              "{{$.inputs.parameters['project_id']}}",
+              "--feature_path",
+              "{{$.inputs.artifacts['feature_path'].path}}",
+              "--model_repo",
+              "{{$.inputs.parameters['model_repo']}}",
+              "--metrics_path",
+              "{{$.outputs.artifacts['metrics_path'].path}}"
+            ],
+            "command": [
+              "python3",
+              "/pipelines/component/src/component.py"
+            ],
+            "image": "gcr.io/de2022-362409/mlptrainer:0.0.1"
+          }
+        }
+      }
+    },
+    "pipelineInfo": {
+      "name": "diabetes-predictor-mlp"
+    },
+    "root": {
+      "dag": {
+        "tasks": {
+          "download-data": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-download-data"
+            },
+            "inputs": {
+              "parameters": {
+                "bucket": {
+                  "componentInputParameter": "data_bucket"
+                },
+                "file_name": {
+                  "componentInputParameter": "trainset_filename"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "download-data"
+            }
+          },
+          "train-mlp": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-train-mlp"
+            },
+            "dependentTasks": [
+              "download-data"
+            ],
+            "inputs": {
+              "artifacts": {
+                "feature_path": {
+                  "taskOutputArtifact": {
+                    "outputArtifactKey": "feature_path",
+                    "producerTask": "download-data"
+                  }
+                }
+              },
+              "parameters": {
+                "model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "train-mlp"
+            }
+          }
+        }
+      },
+      "inputDefinitions": {
+        "parameters": {
+          "data_bucket": {
+            "type": "STRING"
+          },
+          "model_repo": {
+            "type": "STRING"
+          },
+          "project_id": {
+            "type": "STRING"
+          },
+          "trainset_filename": {
+            "type": "STRING"
+          }
+        }
+      }
+    },
+    "schemaVersion": "2.0.0",
+    "sdkVersion": "kfp-1.8.14"
+  },
+  "runtimeConfig": {
+    "gcsOutputDirectory": "gs://de_jads_temp"
+  }
+}
