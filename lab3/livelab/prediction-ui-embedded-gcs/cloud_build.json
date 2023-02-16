@@ -48,7 +48,7 @@
         "managed",
         "--allow-unauthenticated",
         "--update-env-vars",
-        "PROJECT_ID=MODEL_NAME=your_model_name",
+        "PROJECT_ID=$PROJECT_ID,MODEL_NAME=model.h5",
         "--no-cpu-throttling",
         "--memory",
         "4 Gi"
