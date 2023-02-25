@@ -1,0 +1,50 @@
+{
+  "steps": [	
+    {
+      "name": "python:3.10.8-slim-buster",
+      "entrypoint": "/bin/sh",
+      "args": [
+        "-c",
+        "cd ./lab4/deliveryservice && python -m venv .myenv && . .myenv/bin/activate && pip install -r requirements.txt && python -m pytest --junitxml=${SHORT_SHA}_test_log.xml",
+        "--user"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/deliveryservice-api:0.0.1",
+        "./lab4/deliveryservice"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "gcr.io/$PROJECT_ID/deliveryservice-api:0.0.1"
+      ]
+    },
+    {
+      "name": "gcr.io/google.com/cloudsdktool/cloud-sdk",
+      "entrypoint": "gcloud",
+       "args": [
+        "run",
+        "deploy",
+        "delivery-service",
+        "--image",
+        "gcr.io/$PROJECT_ID/deliveryservice-api:0.0.1",
+        "--region",
+        "us-central1",
+        "--platform",
+        "managed",
+        "--allow-unauthenticated",
+        "--update-env-vars",
+        "DB_URL=bigquery://ada2023/deliverydb",
+        "--no-cpu-throttling",
+        "--memory",
+        "4 Gi"
+      ]
+    }
+  ]
+}
