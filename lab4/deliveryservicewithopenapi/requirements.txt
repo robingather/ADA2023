@@ -1,6 +1,4 @@
 flask
-pandas
-numpy
 sqlalchemy
 # connexion
 connexion[swagger-ui]
