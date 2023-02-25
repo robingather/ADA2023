@@ -5,7 +5,7 @@
       "entrypoint": "/bin/sh",
       "args": [
         "-c",
-        "cd ./lab4/deliveryservice && python -m venv .myenv && . .myenv/bin/activate && pip install -r requirements.txt && python -m pytest --junitxml=${SHORT_SHA}_test_log.xml",
+        "cd ./lab4/deliveryservice && python -m venv .myenv && . .myenv/bin/activate && pip install -r requirements_dev.txt && python -m pytest --junitxml=${SHORT_SHA}_test_log.xml",
         "--user"
       ]
     },

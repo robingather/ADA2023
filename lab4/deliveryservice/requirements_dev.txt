@@ -1,6 +1,5 @@
 flask
-pandas
-numpy
 sqlalchemy
 sqlalchemy-utils
 sqlalchemy-bigquery
+pytest
