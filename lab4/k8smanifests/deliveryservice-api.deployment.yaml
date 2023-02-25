@@ -16,7 +16,7 @@ spec:
         app: deliveryservice-api
     spec:
       containers:
-      - image: gcr.io/ada2023/deliveryservice-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
+      - image: gcr.io/ada2023/deliveryservice-bq-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
         name: deliveryservice-api
         ports:
         - containerPort: 5000
