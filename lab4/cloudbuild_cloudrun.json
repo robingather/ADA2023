@@ -36,6 +36,8 @@
         "gcr.io/$PROJECT_ID/deliveryservice-api:0.0.1",
         "--region",
         "us-central1",
+		"--port",
+		"5000",
         "--platform",
         "managed",
         "--allow-unauthenticated",
