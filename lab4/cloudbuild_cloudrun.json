@@ -39,13 +39,13 @@
 		"--port",
 		"5000",
         "--platform",
-        "managed",
-        "--allow-unauthenticated",
+        "managed",        
         "--update-env-vars",
         "DB_URL=bigquery://ada2023/deliverydb",
         "--no-cpu-throttling",
         "--memory",
-        "4 Gi"
+        "4 Gi",
+		"--allow-unauthenticated"
       ]
     }
   ]
