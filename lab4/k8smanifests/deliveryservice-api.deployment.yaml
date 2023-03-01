@@ -16,7 +16,7 @@ spec:
         app: deliveryservice-api
     spec:
       containers:
-      - image: gcr.io/ada2023/deliveryservice-bq-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
+      - image: gcr.io/ada23-project/deliveryservice-bq-api:0.0.1 # Docker image name, that we pushed to GCR - use your project id
         name: deliveryservice-api
         imagePullPolicy: "Always"
         ports:
@@ -24,4 +24,4 @@ spec:
           protocol: TCP
         env:
         - name: DB_URL
-          value: bigquery://ada2023/deliverydb  # use bigquery db url
+          value: bigquery://ada23-project/delivery_db  # use bigquery db url

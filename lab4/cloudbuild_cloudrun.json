@@ -41,7 +41,7 @@
         "--platform",
         "managed",        
         "--update-env-vars",
-        "DB_URL=bigquery://ada2023/deliverydb",
+        "DB_URL=bigquery://ada23-project/delivery_db",
         "--no-cpu-throttling",
         "--memory",
         "4 Gi",
