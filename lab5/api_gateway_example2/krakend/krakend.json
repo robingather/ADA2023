@@ -18,19 +18,10 @@
             "http://order_record_service_ct:5000/"
           ],
           "disable_host_sanitize": false,
-          "extra_config": {
-            "qos/ratelimit/proxy": {
-              "max_rate": 3,
-              "capacity": 3
-            }
-          },
-          "blacklist": [],
+          "deny": [],
           "mapping": {
             "unit_price": "uprice"
-          },
-          "deny": [
-            "name"
-          ]
+          }
         },
         {
           "url_pattern": "/products/{producttype}",
@@ -40,16 +31,18 @@
             "http://inventory_service_ct:5000/"
           ],
           "disable_host_sanitize": false,
-          "blacklist": [
+          "deny": [
             "name"
           ]
         }
       ],
       "extra_config": {
         "qos/ratelimit/router": {
-          "maxRate": 3,
-          "clientMaxRate": 0,
-          "strategy": "ip"
+          "max_rate": 3,
+          "client_max_rate": 0,
+          "strategy": "ip",
+          "capacity": 0,
+          "client_capacity": 0
         }
       }
     },
@@ -73,8 +66,7 @@
           "disable_host_sanitize": false,
           "mapping": {
             "product_type": "type"
-          },
-          "blacklist": []
+          }
         },
         {
           "url_pattern": "/products/{resp0_type}",
@@ -83,19 +75,9 @@
           "host": [
             "http://inventory_service_ct:5000/"
           ],
-          "disable_host_sanitize": true,
-          "blacklist": [
-            "name"
-          ]
+          "disable_host_sanitize": false
         }
       ]
     }
-  ],
-  "extra_config": {
-    "documentation/openapi": {
-      "version": "1.0"
-    }
-  },
-  "timeout": "3000ms",
-  "cache_ttl": "300s"
+  ]
 }
