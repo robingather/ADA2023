@@ -1,0 +1,10 @@
+{
+  "$schema": "http://www.krakend.io/schema/v3.json",
+  "version": 3,
+  "output_encoding": "json",
+  "name": "InventoryReplenishmentService",
+  "port": 8081,
+  "endpoints": [
+    
+  ]
+}

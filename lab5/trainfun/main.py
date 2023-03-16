@@ -6,18 +6,20 @@ from flask import jsonify
 from google.cloud import storage
 from keras.layers import Dense
 from keras.models import Sequential
+import functions_framework
 
 
+@functions_framework.http
 def train_diabetes_predictor(request):
     request_json = request.get_json(silent=True)
     project_id = request_json["project_id"]
     m_bucket = request_json["m_bucket"]
-    bucket_name = request_json["f_bucket"]
+    d_bucket = request_json["d_bucket"]
     file_name = request_json["file_name"]
 
     # Open a channel to read the file from GCS
     client = storage.Client(project=project_id)
-    bucket = client.get_bucket(bucket_name)
+    bucket = client.get_bucket(d_bucket)
     blob = bucket.blob(file_name)
     temp_filename = os.path.join('/tmp', file_name)
     blob.download_to_filename(temp_filename)
