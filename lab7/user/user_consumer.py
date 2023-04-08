@@ -45,6 +45,6 @@ def callback(message):
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
-    create_topic("ada2022-341617", "order_status_user")
-    create_subscription("ada2022-341617", "order_status_user", "order_status_user_sub")
-    MessagePuller(project="ada2022-341617", subscription="order_status_user_sub")
+    # create_topic("your_project_id", "order_status_user")
+    # create_subscription("your_project_id", "order_status_user", "order_status_user_sub")
+    MessagePuller(project="your_project_id", subscription="order_status_user_sub")

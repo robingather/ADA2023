@@ -31,11 +31,10 @@ def publish_message(project_id, topic_id, message):
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
-    create_topic("ada2022-341617", "order_req")  # make sure to change the project id - i.e., ada2022-341617
     data = {
         "product_type": "Phone",
         "quantity": 10,
         "unit_price": 232.00
     }
     data = json.dumps(data).encode("utf-8")
-    publish_message("ada2022-341617", "order_req", data)
+    publish_message("your_project_id", "order_req", data)
