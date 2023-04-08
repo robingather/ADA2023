@@ -44,7 +44,6 @@ class MessagePuller(Thread):
         Thread.__init__(self)
         self.project_id = project
         self.subscription_id = subscription
-        self.daemon = True
         self.orders = orders
         self.start()
 
