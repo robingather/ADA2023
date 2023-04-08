@@ -26,7 +26,7 @@ def pull_message(project, subscription):
         project_id=project,
         sub=subscription
     )
-
+    logging.info(f"Reading data from created: {subscription_name}")
     with pubsub_v1.SubscriberClient() as subscriber:
         future = subscriber.subscribe(subscription_name, callback)
         try:
