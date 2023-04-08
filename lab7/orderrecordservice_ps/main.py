@@ -9,4 +9,5 @@ logging.basicConfig(level=logging.INFO)
 orders = Orders()
 order = Order()
 project_id = os.environ['project_id']
-MessagePuller(project=project_id, subscription="inventory_status_orderrecord_sub", orders=orders)
+mp = MessagePuller(project=project_id, subscription="inventory_status_orderrecord_sub", orders=orders)
+mp.run()

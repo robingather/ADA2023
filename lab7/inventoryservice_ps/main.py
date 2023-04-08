@@ -9,4 +9,5 @@ logging.basicConfig(level=logging.INFO)
 product = Product()
 products = Products()
 project_id = os.environ['project_id']
-MessagePuller(project=project_id, subscription="order_req_sub", product=product)
+mp = MessagePuller(project=project_id, subscription="order_req_sub", product=product)
+mp.run()

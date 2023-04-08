@@ -1,10 +1,8 @@
 import logging
 import time
+import schedule
 
 from google.cloud import pubsub_v1
-
-from message_puller import MessagePuller
-from user_publisher import create_topic
 
 
 def create_subscription(project_id, topic_id, subscription_id):
@@ -34,6 +32,7 @@ def pull_message(project, subscription):
         try:
             future.result()
         except Exception as ex:
+            logging.info(ex)
             logging.info(f"Listening for messages on {subscription_name} threw an exception: {ex}.")
             time.sleep(30)
 
@@ -45,6 +44,7 @@ def callback(message):
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
-    # create_topic("your_project_id", "order_status_user")
-    # create_subscription("your_project_id", "order_status_user", "order_status_user_sub")
-    MessagePuller(project="your_project_id", subscription="order_status_user_sub")
+    schedule.every().minute.at(':00').do(pull_message, "your_project_id", "order_req_sub")
+    while True:
+        schedule.run_pending()
+        time.sleep(.1)
