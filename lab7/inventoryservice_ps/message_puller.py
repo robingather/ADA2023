@@ -58,7 +58,7 @@ class MessagePuller:
         self.product = product
 
     def run(self):
-        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_id)
+        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_id, self.product)
         while True:
             schedule.run_pending()
             time.sleep(.1)
