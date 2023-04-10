@@ -1,0 +1,10 @@
+jaffle-shop-bigquery-db:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth-secrets
+      project: your_project_id
+      dataset: your_big_query_project_id
+      threads: 2
+      token: {run gcloud auth application-default print-access-token and put the generated token here }
