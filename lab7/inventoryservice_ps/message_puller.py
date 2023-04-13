@@ -16,17 +16,28 @@ class Callable:
 
     def callback(self, message):
         logging.info(f"Received {message.data}.")
+        event_type = message.attributes.get("event_type")  # event type as a message attribute
         data = json.loads(message.data.decode("utf-8"))
-        quantityAva = self.product.get_quantity(data["product_type"])
-        if quantityAva < data["quantity"]:
+        if event_type == "OrderReq":
+            quantityAva = self.product.get_quantity(data["product_type"])
+            if quantityAva < data["quantity"]:
+                data = {
+                    "message": "The requested quantity cannot be satisfied"
+                }
+                data = json.dumps(data).encode("utf-8")
+                publish_message(project=self.project, topic="inventory_status", message=data,
+                                event_type="StockUnavailable")
+            else:
+                data = json.dumps(data).encode("utf-8")
+                publish_message(project=self.project, topic="inventory_status", message=data,
+                                event_type="StockAvailable")
+        elif event_type == "OrderCreated":
+            self.product.put(data["product_type"], data["quantity"])
             data = {
                 "message": "The requested quantity cannot be satisfied"
             }
             data = json.dumps(data).encode("utf-8")
-            publish_message(project=self.project, topic="inventory_status", message=data, event_type="StockUnavailable")
-        else:
-            data = json.dumps(data).encode("utf-8")
-            publish_message(project=self.project, topic="inventory_status", message=data, event_type="StockAvailable")
+            publish_message(project=self.project, topic="inventory_status", message=data, event_type="InventoryUpdated")
         message.ack()
 
 
@@ -53,13 +64,16 @@ def pull_message(project, subscription, product):
 
 
 class MessagePuller:
-    def __init__(self, project, subscription, product):
+    def __init__(self, project, subscription_order_req, subscription_order_status, product):
         self.project_id = project
-        self.subscription_id = subscription
+        self.subscription_order_req = subscription_order_req
+        self.subscription_order_status = subscription_order_status
         self.product = product
 
     def run(self):
-        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_id, self.product)
+        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_order_req, self.product)
+        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_order_status,
+                                             self.product)
         while True:
             try:
                 schedule.run_pending()

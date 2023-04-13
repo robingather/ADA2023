@@ -10,5 +10,5 @@ create_subscription("your_project_id", "order_status_user", "order_status_user_s
 create_topic("your_project_id", "order_req")
 create_topic("your_project_id", "inventory_status")
 create_subscription("your_project_id", "inventory_status",
-                    "inventory_status_orderrecord_sub")
-create_topic("your_project_id", "order_status")
+                    "inventory_status_sub")
+create_subscription("your_project_id", "order_status","order_status_sub")

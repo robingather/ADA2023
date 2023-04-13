@@ -25,7 +25,7 @@ def receive_order_status(cloud_event):
         }
         data = json.dumps(data).encode("utf-8")
         publish_message(project=project_id, topic="order_status_user", message=data, event_type="OrderAccepted")
-    else:
+    elif custom_event_type == "StockUnavailable":
         data = {
             "message": "Sorry, we can not meet your order at the moment. Please try later."
         }
