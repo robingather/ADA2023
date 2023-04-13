@@ -1,12 +1,13 @@
 version: '3.9'
-services:  
+services:
   api_gatway:
     image: devopsfaith/krakend:2.2.0
     container_name: api_gatway_ct
     volumes:
       - ./krakend:/etc/krakend/
     depends_on:
-      - inventory_service
+      - inventory_service1
+      - inventory_service2
       - order_record_service
     ports:
       - "8080:8081"
