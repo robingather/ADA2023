@@ -1,5 +1,3 @@
-from flask import jsonify
-
 inventories = [
     {
         "name": "Laptop",
@@ -21,15 +19,15 @@ class Product:
     def get(self, pname):
         for record in inventories:
             if pname == record["name"]:
-                return jsonify(record), 200
-        return jsonify({"message": "No product for " + pname}), 404
+                return record
+        return {"message": "No product for " + pname}
 
     def put(self, pname, value):
         for record in inventories:
             if pname == record["name"]:
                 record["quantity"] = record["quantity"] - value
-                return jsonify(record), 200
-        return jsonify({"message": "No product for " + pname}), 404
+                return record
+        return {"message": "No product for " + pname}
 
 
 class Products:
@@ -38,16 +36,16 @@ class Products:
         pname = record_to_be_created["name"]
         for record in inventories:
             if pname == record["name"]:
-                return jsonify({"message": "There is a product with the name " + pname}), 400
+                return {"message": "There is a product with the name " + pname}
         inventories.append(record_to_be_created)
-        return jsonify(record_to_be_created), 201
+        return record_to_be_created
 
     def post_query(self, request):
         pname = request.args.get('name')
         quantity = request.args.get('quantity')
         for record in inventories:
             if pname == record["name"]:
-                return jsonify({"message": "There is a product with the name " + pname}), 400
+                return {"message": "There is a product with the name " + pname}
         record_to_be_created = {"name": pname, "quantity": quantity}
         inventories.append(record_to_be_created)
-        return jsonify(record_to_be_created), 201
+        return record_to_be_created

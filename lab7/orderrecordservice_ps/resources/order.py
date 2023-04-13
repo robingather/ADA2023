@@ -1,7 +1,5 @@
 import random
 
-from flask import jsonify
-
 orderRecords = [
     {
         "id": "id1",
@@ -17,14 +15,14 @@ class Order:
         for record in orderRecords:
             if id == record["id"]:
                 return record, 200
-        return jsonify({"message": "Order record not found"}), 404
+        return {"message": "Order record not found"}
 
     def put(self, id, rating):
         for record in orderRecords:
             if id == record["id"]:
                 record["rating"] = rating
                 return record, 200
-        return jsonify({"message": "Order record not found"}), 404
+        return {"message": "Order record not found"}
 
     def delete(self, id):
         to_be_deleted = None
@@ -34,8 +32,8 @@ class Order:
                 break
         if to_be_deleted:
             orderRecords.remove(to_be_deleted)
-            return jsonify({"message": "{} is deleted.".format(id)}), 200
-        return jsonify({"message": "Order record not found"}), 404
+            return {"message": "{} is deleted.".format(id)}
+        return {"message": "Order record not found"}
 
 
 class Orders:
@@ -45,9 +43,9 @@ class Orders:
         record_to_be_created["id"] = id1
         for record in orderRecords:
             if id1 == record["id"]:
-                return jsonify({"message": "Order with id {} already exists".format(id)}), 400
+                return {"message": "Order with id {} already exists".format(id)}
         orderRecords.append(record_to_be_created)
-        return jsonify(record_to_be_created), 201
+        return record_to_be_created
 
     def create_order(self, data):
         record_to_be_created = data
@@ -70,10 +68,10 @@ class Orders:
         if to_be_deleted:
             orderRecords.remove(to_be_deleted)
         orderRecords.append(record_to_be_created)
-        return jsonify(record_to_be_created), 201
+        return record_to_be_created
 
     def get(self):
         results = []
         for record in orderRecords:
             results.append(record["id"])
-        return jsonify(results), 200
+        return results
