@@ -1,7 +1,7 @@
 import logging
 import time
-from threading import Thread
 
+import schedule
 from google.cloud import pubsub_v1
 
 
@@ -34,18 +34,16 @@ def pull_message(project, subscription):
             logging.info("Streaming pull future canceled.")
 
 
-class MessagePuller(Thread):
+class MessagePuller:
     def __init__(self, project, subscription):
-        Thread.__init__(self)
         self.project_id = project
         self.subscription_id = subscription
 
     def run(self):
+        schedule.every().minute.at(':00').do(pull_message, self.project_id, self.subscription_id)
         while True:
             try:
-                pull_message(self.project_id, self.subscription_id)
-                time.sleep(30)
+                schedule.run_pending()
+                time.sleep(.1)
             except Exception as ex:
                 logging.info(ex)
-                logging.info(f"Listening for messages on {self.subscription_id} threw an exception: {ex}.")
-                time.sleep(30)
