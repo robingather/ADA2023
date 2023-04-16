@@ -4,7 +4,7 @@ jaffle-shop-bigquery-db:
     dev:
       type: bigquery
       method: oauth-secrets
-      project: your_project_id
-      dataset: your_big_query_project_id
+      project: ada2023
+      dataset: jaffle_shop
       threads: 2
-      token: {run gcloud auth application-default print-access-token and put the generated token here }
+      token: ya29.c.b0Aaekm1LHZkne2XApHcPUTlsZBW8FdzjjL_F9vybgN_F2Lnd3xDazm1M_1lPGlVbH5k0rOcZhQO_dU7e44NCBJWsO30lGr0IT7J0Cm0cJUyaQnVdUVTqW1hqb9Xx0W3yVmpZ1DgUt54isUUq6UXm9RxHaiP6QU4_wH62-cUQt4sht9JzB9AbebRmb1BrDDzlg35hldTJt2Axb6GSOsFRfJzipYTsRuZ-UcLRe4VU3FaPxwmZeAE5WLHJKD0GpcQO3WNS-m6CidYGrDoVeWjN8taTLubZjbx0o9jm-1Fj4gYu_NK4Z_4wqQgH319Dsqy3XcwmnRw7i_5QYzbYjJu4tQqsqZvWic0SmnW7y0qlba9So8egX8Bdun80sJcQYY8zQyFyFMd3Ybiivfv5X08d-pVQ9wMz3b3b2bF-RqQfRJmkz1owR0kVr-x7zVO93nwSjw2WBFSUicdtIiBodhcd-FJ4osIdcuk-rektZx3w4OVZmMxV9wpOMUaY75lMzuMW49p0rnb343h5gSMkbRJR2dIB2fF0hf1I581lWdzv9f9SXXjoxdyxejhnJWsuIRn7i_QRcj6iWkgotay6dFMvvo0xza2XyUelwux2eYXg4xtoJhlcU0ekt1wf4xBf15W65t0v9zFB0XBypa4wjIUf4iuUQykzsx2qdslVette14RZVmib4V-JbtfkbOXJ4dm7-Q7tuor51zSXjZR-358dVvbp1w8bdvyyryI7huq2aoUsOshpt4dOk5rmM4qqpyFzdZk6fypayISWnlvfXvb_Xs32JS3B2a3I1Zxe4kQIW1WOqzVjkUhbuih4p_x47f-s6v-yxZUYy0y5OQWFkviOFqr76dm9osmfOokSyz3wVsI0Q6WgBQa0Vtm3WwU7VpfZ-d_aqhwUa0Rj2sgi4Q6ayRbJrB165l6Z15h8nnidjFFQS3ul1Vhu1O3ev7vtYznxm4UxYrFZgw3ZBu2x_W8s-mM6F9Rpu1RQ-S4-h65plgUJmeiMMgnIohZe

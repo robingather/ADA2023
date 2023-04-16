@@ -51,6 +51,7 @@ final as (
         customers.customer_id,
         customers.first_name,
         customers.last_name,
+        {{full_name_fun('customers.first_name','customers.last_name') }} as full_name,
         customer_orders.first_order,
         customer_orders.most_recent_order,
         customer_orders.number_of_orders,
