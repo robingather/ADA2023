@@ -18,14 +18,17 @@ payments as (
 
 customers_orders as (
 
-    select *
+    select customers.customer_id,
+           orders.order_id
+
     from customers
     inner join orders on customers.customer_id = orders.customer_id
 ),
 
 orders_payments as (
 
-    select *
+    select orders.order_id,
+            payments.amount
     from orders
     inner join payments on orders.order_id = orders.order_id
 ),
@@ -34,14 +37,14 @@ final as (
 
     select
         customers_orders.customer_id,
-        customers_orders.first_name,
-        customers_orders.last_name,
         sum(orders_payments.amount)
 
     from customers_orders
 
     inner join orders_payments
-        on customers_orders.customer_id = orders_payments.customers_orders
+        on customers_orders.order_id = orders_payments.order_id
+
+    group by customers_orders.customer_id
 )
 
 select * from final

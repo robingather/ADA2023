@@ -8,7 +8,7 @@ profile: 'jaffle-shop-bigquery-db'
 model-paths: ["models"]
 seed-paths: ["data"]
 test-paths: ["tests"]
-analysis-paths: ["analysis"]
+analysis-paths: ["analyses"]
 macro-paths: ["macros"]
 
 target-path: "target"
