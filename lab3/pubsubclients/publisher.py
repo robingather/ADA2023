@@ -44,4 +44,4 @@ if __name__ == '__main__':
         }
     ]
     data = json.dumps(data).encode("utf-8")
-    publish_message("ada2023", "diabetes_req", data)  # replace ada2023 with your project id
+    publish_message("ada23-project", "diabetes_req", data)  # replace ada2023 with your project id
