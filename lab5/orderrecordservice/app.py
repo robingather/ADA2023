@@ -8,6 +8,13 @@ orders = Orders()
 placeRecord = Order()
 
 
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 300
+    response.cache_control.public = True
+    return response
+
+
 @app.route('/orders/<string:id>', methods=['GET'])
 def get_order(id):
     return placeRecord.get(id)
